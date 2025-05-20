@@ -12,7 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('service_records', function (Blueprint $table) {
-            $table->id();
+            $table->string('RecordNumber')->primary();
+            $table->date('ServiceDate');
+            $table->string('CarPlateNumber');
+            $table->string('ServiceCode');
+            $table->foreign('CarPlateNumber')->references('PlateNumber')->on('cars')->onDelete('cascade');
+            $table->foreign('ServiceCode')->references('ServiceCode')->on('services')->onDelete('cascade');
             $table->timestamps();
         });
     }
